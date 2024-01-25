@@ -1,0 +1,46 @@
+*{
+    font-family: 'Oswald', sans-serif;
+} 
+
+
+body{
+    /* background-color: #A79986; */
+    background-image: url('../assets/img/fondo.jpg');
+    background-size: cover;
+}
+
+.estiloBoton{
+    padding: 8px 70px;
+    background-color: #ac824856;
+    border-radius: 8px;
+}
+
+.estiloBotonEliminar{
+    padding: 8px 70px;
+    background-color: rgba(255, 0, 0, 0.205);
+    border-radius: 8px;
+}
+
+.estiloBotonCensistaLogueado{
+    padding: 8px 70px;
+    background-color: #48ac4d56;
+    border-radius: 8px;
+}
+
+.estiloBotonSalir{
+    padding: 4px 20px;
+    margin-left: 10px;
+    border-radius: 8px;
+    background-color: rgba(255, 0, 0, 0.205);
+    color: white;
+}
+
+.estiloBotonVolver{
+    padding: 4px 20px;
+    margin-left: 10px;
+    border-radius: 8px;
+    background-color: rgba(0, 98, 255, 0.205);
+    color: white;
+}
+
+

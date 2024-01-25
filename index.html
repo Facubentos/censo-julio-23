@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>CENSO 2023 - FACUNDO BENTOS</title>
+    <!-- fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;600&display=swap" rel="stylesheet">
+
+    <!-- bootstrap y estilos -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="estilos/estilos.css" />
+</head>
+
+<body>
+    <!--login en el que se va a pedir al registro al censista-->
+    <main class="m-2">
+
+        <div class="">
+            <header class="d-flex flex-wrap justify-content-center">
+                <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+                    <h3>CENSO 2023</h3>
+                </div>
+                <div class="text-end">
+                    <button class="btn border estiloBotonVolver" onclick="volver()">Volver</button>
+                </div>
+                <div class="text-end">
+                    <button class="btn border estiloBotonSalir" onclick="salir()">Salir</button>
+                </div>
+            </header>
+        </div>
+
+        <div class="col-md-10 mx-auto col-lg-4 mt-3">
+
+            <!-- Selección de tipo de usuario: INVITADO/CENSISTA -->
+            <div id="contenidoInicio" class="mt-5 pt-5">
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <h4 class="h3 mb-0 fw-normal letra">Bienvenido</h4>
+                        <p class="m-1 border-bottom">Seleccione el usuario que corresponda.</p>
+                    </div>
+                    <div class="m-1 pt-3">
+                        <button class="w-100 btn btn-lg border rounded-3 estiloBoton mb-2" id="btnRegistrarCensista"
+                            type="button" onclick="ingresoInvitado()">Invitado</button>
+
+                        <button class="w-100 btn btn-lg border rounded-3 estiloBoton" type="button"
+                            onclick="ingresoCensista()">Censista</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- CENSISTA / Registro censista -->
+            <div id="contenidoRegistro" style="display: none;">
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                    id="formularioRegistroCensista">
+                    <h4 class="h3 mb-0 fw-normal letra">Censista</h4>
+                    <p>Por favor censista, regístrate</p>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="ingresoNombreCensista">
+                        <label for="ingresoNombreCensista">Nombre:</label>
+                        <p id="errorNombre" style="color:red"></p>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="ingresoUsuarioCensista">
+                        <label for="ingresoUsuarioCensista">Nombre de usuario:</label>
+                        <p id="errorNombreUsuario" style="color:red"></p>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="ingresoClaveCensista">
+                        <label for="ingresoClaveCensista">Contraseña:</label>
+                        <p id="errorClave" style="color:red"></p>
+                    </div>
+
+                    <button type="button" class="w-100 btn btn-lg border rounded-3 estiloBoton" type="button"
+                        onclick="registrar()">Ingresar</button>
+                    <p class="align-items-center m-3 border-bottom" id="mensajeUsuario" style="color: red;"></p>
+                    <button type="button"
+                        class="w-100 btn btn-sm border border-success rounded-3 estiloBotonCensistaLogueado"
+                        onclick="ingresoLoginCensista()">Ya estoy registrado!</button>
+                </form>
+            </div>
+
+            <!-- CENSISTA / Login censista -->
+            <div id="contenidoLogin" style="display: none;">
+                <p id="mensajeLoginCorrecto"></p>
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                    id="formularioLoginUsuario">
+                    <h4 class="h3 mb-0 fw-normal letra">Censista</h4>
+                    <p>Por favor, inicia sesión</p>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" id="loginUsuarioCensista">
+                        <label for="loginUsuarioCensista">Usuario:</label>
+                        <p id="errorLoginUsuario" style="color:red"></p>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="loginClaveCensista">
+                        <label for="loginClaveCensista">Contraseña:</label>
+                        <p id="errorLoginClave" style="color:red"></p>
+                    </div>
+
+                    <button class="w-100 btn btn-lg border rounded-3 estiloBoton" type="button"
+                        onclick="loginCensista()">Ingresar</button>
+                    <p class="align-items-center" id="mensajeErrorLogin" style="color: red;"></p>
+                </form>
+            </div>
+
+            <!-- CENSISTA / Menú cencista -->
+            <div id="contenidoMenúCensista" class="mt-5 pt-5" style="display: none;">
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <h4 class="h3 mb-0 fw-normal letra">Bienvenido</h4>
+                        <p class="m-1 border-bottom">Seleccione el que corresponda.</p>
+                    </div>
+                    <div class="m-1 pt-3">
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton mb-2" id="btnFormularioCenso"
+                            type="button" onclick="ingresoFormularioCenso()">Formulario Censo</button>
+
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton mb-2" id="btnCensosPorValidar"
+                            type="button" onclick="ingresoCensosPorValidar()">Consultar censos por validar</button>
+
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton mb-2" type="button"
+                            onclick="ingresoReasignarPersona()">Reasignar persona por validar</button>
+
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton" type="button"
+                            onclick="ingresoInformacionEstadistica()">Visualizar información estadística</button>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- INVITADO / Menú invitado -->
+            <div id="contenidoMenuInvitado"  class="mt-5 pt-5" style="display: none;">
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
+                    <div>
+                        <h5 class="mb-0 fw-normal letra border-bottom">Menú invitado</h5>
+
+                    </div>
+                    <div class="m-1 pt-3">
+
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton mb-2" type="button"
+                            onclick="ingresoCensosPorValidar()">Completar formulario</button>
+
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton" type="button"
+                            onclick="verEstadisticasInvitado()">Ver información estadística</button>
+
+                    </div>
+                </form>
+            </div>
+
+            <!-- INVITADO / CENSISTA / Busqueda por cédula -->
+            <div id="contenidoCedulaCenso" class="mt-5 pt-5" style="display: none;">
+                <p id="mostrarMensajeCedula"></p>
+                <div>
+                    <div>
+                        <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                            id="formularioCedulaCenso">
+                            <h3>Censo 2023</h3>
+                            <p class="m-1 border-bottom">Ingrese su cédula.</p>
+                            <br>
+                            <div class="form-floating">
+                                <input class="form-control" id="buscarCedulaPersona">
+                                <label for="buscarCedulaPersona">Cédula de identidad:</label>
+                            </div>
+                            <br>
+                            <button type="button" class="w-100 btn btn-lg border rounded-3 estiloButton"
+                                onclick="procesarCedula()">Enviar</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVITADO / CENSISTA / Formulario censo -->
+            <div id="contenidoCenso" style="display: none;">
+                <p id="mensajeErrorEdadIngresada"></p>
+                <p id="mensajeCenso"></p>
+                <div>
+                    <div>
+                        <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                            id="formularioCenso">
+                            <h3>Censo 2023</h3>
+                            <p>Por favor completa los datos solicitados:</p>
+
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="nombrePersona">
+                                <label for="nombrePersona">Nombre:</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="apellidoPersona">
+                                <label for="apellidoPersona">Apellido:</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="edadPersona" min="0" max="130">
+                                <label for="edadPersona">Edad:</label>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control cedulaPersona" id="cedulaPersona">
+                                <label for="cedulaPersona">Cédula de identidad:</label>
+                            </div>
+                            <div class="form-floating">
+                                <select id="departamentoPersona" class="form-select">
+                                </select>
+                                <label for="departamentoPersona">Departamento de residencia:</label>
+                            </div>
+
+                            <div class="form-floating">
+                                <select id="ocupacionPersona" class="form-select">
+                                </select>
+                                <label for="ocupacionPersona">Ocupación:</label>
+                            </div>
+                            <br>
+                            <button type="button" class="w-100 btn btn-lg border rounded-3 estiloBoton"
+                                onclick="enviarFormulario()">Enviar</button>
+                            
+                            <button type="button" class="w-100 mt-2 btn btn-sm border rounded-3 estiloBotonEliminar"
+                                onclick="eliminarPersonaCensada()">Eliminar formulario</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVITADO / CENSISTA / Censo enviado -->
+            <div id="contenidoCensoEnviado" class="mt-5 pt-5" style="display: none;">
+                <p id="mensajeCensoEnviado"></p>
+                <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                    id="formularioCensoEnviado">
+                    <div>
+                        <h4 class="h3 mb-0 fw-normal letra">Gracias!</h4>
+                        <p class="m-1 border-bottom" id="validacionCensoEnviado">Su censo será validado a la brevedad.
+                        </p>
+                    </div>
+                    <div class="m-1 pt-3">
+                        <button class="w-100 btn btn-sm border rounded-3 estiloBoton" type="button"
+                            onclick="volverAlInicio()">Salir</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- CENSISTA / Reasignar censista -->
+            <div id="contenidoReasignarCensista" class="mt-5 pt-5" style="display: none;">
+                <p id="mensajeTransferenciaRealizada"></p>
+                <div>
+                    <div>
+                        <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                            id="formularioReasignarCensista">
+                            <h3>Censo 2023</h3>
+                            <p class="m-1 border-bottom">Censos por validar.</p>
+                            <br>
+                            <div class="form-floating">
+                                <select id="personaPorValidar" class="form-select">
+                                </select>
+                                <label for="personaPorValidar">Persona:</label>
+                            </div>
+                            <br>
+                            <div class="form-floating">
+                                <select id="censistaParaTransferir" class="form-select">
+                                </select>
+                                <label for="censistaParaTransferir">Censista:</label>
+                            </div>
+                            <br>
+                            <button type="button" class="w-100 btn btn-lg border rounded-3 estiloButton"
+                                id="btnTransferirPersona"
+                                onclick="procesarTransferenciaDeCensista()">Transferir</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- CENSISTA / Informacion estadistica -->
+            <div id="contenidoInformacionEstadistica" class="mt-5 pt-5" style="display: none;">
+                <div>
+                    <div>
+                        <form class="p-4 p-md-5 border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded"
+                            id="formularioEstadistica">
+                            <h3 class="mb-4 border-bottom">Informacion estadística.</h3>
+
+                            <div class="form-floating">
+
+                                <div class="input-group input-group-sm mb-3">
+                                    <input type="text" class="form-control" id="totalPersonasCensadas"
+                                        aria-label="Small" aria-describedby="inputGroup-sizing-sm" disabled>
+                                </div>
+                            </div>
+                            <p class="m-3 border-bottom"></p>
+                            <div class="form-floating">
+                                <table id="tablaPersonasCensadasPorDepartamento" class="table table-sm">
+                                </table>
+                                <small class="form text text-muted">*En esta tabla solo se muestran departamentos con
+                                    personas censadas*</small>
+                            </div>
+                            <p class="m-3 border-bottom"></p>
+                            <div class="form-floating">
+
+                                <div class="input-group input-group-sm mb-1" id="porcentajePersonasNoValidadas">
+                                </div>
+                                <div class="progress" id="porcentajeGrafica">
+                                </div>
+                            </div>
+                            <p class="m-3 border-bottom"></p>
+                            <div class="form-floating">
+                                <h6>Porcentaje de personas mayores/menores:</h6>
+                                <div class="input-group">
+                                    <select class="custom-select form-select" id="departamentoPorcentaje">
+                                    </select>
+
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary border rounded-3 estiloButton"
+                                            name="btnProcesarInformacion" type="button"
+                                            onclick="procesarInformacionMenoresYMayores()">Ver</button>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-sm mt-2 mb-1"
+                                    id="mostrarPorcentajePersonasMenoresYMayores">
+                                </div>
+                                <div id="porcentajeMenoresYMayores"></div>
+                            </div>
+
+                            <br>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVITADO / Informacion estadistica -->
+            <div id="contenidoEstadisticasInvitado" class="mt-5 pt-5" style="display: none;">
+                <div>
+                    <div>
+                        <form class="border rounded-5 bg-body-tertiary shadow p-3 mb-5 bg-body rounded">
+                            <h3 class="mb-4 border-bottom">Informacion estadística.</h3>
+                            <div class="form-floating">
+                                <table id="tablaInformacionInvitado" class="table table-striped table-sm">
+                                </table>
+                                <!-- <small class="form text text-muted">*En esta tabla solo se muestran departamentos con
+                                    personas censadas*</small> -->
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </main>
+
+
+    <script src="js/libreria.js"></script>
+    <script src="js/censista.js"></script>
+    <script src="js/censo.js"></script>
+    <script src="js/sistema.js"></script>
+    <script src="js/index.js"></script>
+    <script rel="stylesheet" src="bootstrap/js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+<!-- Creado por Facundo Bentos en Julio de 2023 -->
+
+</html>
